@@ -1,0 +1,48 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '4.0.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.aeacoh'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Swagger (Springdoc OpenAPI) 라이브러리 추가
+	// {URL}/swagger-ui/index.html 에서 확인
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
+	// Apache POI - 마이크로소프트 엑셀 파일을 읽거나 쓰기 위한 라이브러리
+    implementation 'org.apache.poi:poi-ooxml:5.2.3'
+
+	// JDBC 도구 추가
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	
+    // H2 데이터베이스
+	// implementation 'com.h2database:h2'
+	
+	// PostgreSQL 드라이버
+    runtimeOnly 'org.postgresql:postgresql'
+
+	// 이메일 발송 라이브러리 추가
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

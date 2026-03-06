@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_PATH" value="./logs" /> <!-- 아래에서 사용하기 위해 LOG_PATH라는 변수 선언 -->
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender"> <!-- IDE의 콘솔 탭에 표시하는 로그에 대한 설정 -->
+        <encoder>
+             <!-- 로그가 찍히는 패턴에 대한 설정 -->
+             <!-- %d{yyyy-MM-dd HH:mm:ss.SSS} : 년-월-일 시:분:초.밀리초 -->
+             <!-- [%thread] : 스레드 표시(호출한 주체에 따라 스레드가 다르다) -->
+             <!-- %-5level : 로그 레벨을 5자리를 차지하도록 표시(DEBUG가 제일 긴 5글자이므로 5자리 차지하도록 함) -->
+             <!-- %logger{36} : 로그 찍은 클래스명 촤대 36자리로 잘라서 표시) -->
+             <!-- %msg%n : 로그 메세지 표시와 줄바꿈 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender"> <!-- 파일에 표시하는 로그에 대한 설정 -->
+        <file>${LOG_PATH}/current.log</file> <!-- 지금 발생하는 로그를 저장할 파일 경로 설정 -->
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> <!-- 지금 발생하는 로그를 저장할 파일 경로 설정 -->
+            <fileNamePattern>${LOG_PATH}/archive/app-%d{yyyy-MM-dd}.log</fileNamePattern>
+            
+            <maxHistory>30</maxHistory> <!-- 30일 지난 로그들은 삭제 -->
+            <totalSizeCap>10GB</totalSizeCap> <!-- 30일이 지나지 않아도 로그 파일 총량이 10GB를 넘으면 오래된 로그 파일부터 삭제 -->
+        </rollingPolicy>
+
+        <encoder>
+             <!-- 로그가 찍히는 패턴에 대한 설정 -->
+             <!-- %d{yyyy-MM-dd HH:mm:ss.SSS} : 년-월-일 시:분:초.밀리초 -->
+             <!-- [%thread] : 스레드 표시(호출한 주체에 따라 스레드가 다르다) -->
+             <!-- %-5level : 로그 레벨을 5자리를 차지하도록 표시(DEBUG가 제일 긴 5글자이므로 5자리 차지하도록 함) -->
+             <!-- %logger{36} : 로그 찍은 클래스명 촤대 36자리로 잘라서 표시) -->
+             <!-- %msg%n : 로그 메세지 표시와 줄바꿈 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG"> <!-- DEBUG 레벨 로그부터 보여지게 하는 설정 -->
+        <appender-ref ref="CONSOLE" /> <!-- 위에 설정한 appender 중 CONSOLE appender 실행 -->
+        <appender-ref ref="FILE" /> <!-- 위에 설정한 appender 중 FILE appender 실행 -->
+    </root>
+</configuration>

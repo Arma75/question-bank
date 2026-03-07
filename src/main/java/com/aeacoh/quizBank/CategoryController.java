@@ -126,7 +126,7 @@ public class CategoryController {
             return orderByClause.toString();
         }
 
-        return " ORDER BY ORDER_NO DESC";
+        return " ORDER BY ORDER_NO ASC, CATEGORY_CD ASC";
     }
     
     // 단건 등록

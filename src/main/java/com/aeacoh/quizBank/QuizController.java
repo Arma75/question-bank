@@ -732,6 +732,7 @@ public class QuizController {
         sql.append("                  ) B");
         sql.append("    ON A.ID = B.QUIZ_ID");
         sql.append(" WHERE A.USE_YN = 'Y'");
+        sql.append("   AND EXISTS (SELECT 1 FROM CATEGORY C WHERE C.USE_YN = 'Y' AND C.CATEGORY_CD = A.CATEGORY_CD)");
         if (categoryCd != null && !categoryCd.trim().isEmpty()) {
             sql.append("   AND A.CATEGORY_CD = ?");
         }
